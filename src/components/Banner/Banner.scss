@@ -1,0 +1,32 @@
+.banner-container {
+  background-image: url("../../assets/images/main-bg.jpg");
+  
+  background-position: center;
+  .banner-content {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 25px;
+    justify-content: space-around;
+  }
+
+  .banner-tagline {
+    display: flex;
+    height: 40%;
+    flex-direction: column;
+    padding-top: 25px;
+    justify-content: center;
+    text-align: center;
+
+    .banner-title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-family: "Roboto Mono", monospace;
+    }
+    .banner-subtitle {
+      color: darkgray;
+      text-transform: capitalize;
+      font-family: "Roboto Mono", monospace;
+    }
+  }
+}
