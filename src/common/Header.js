@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { CryptoState } from "../CryptoContext";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const darkTheme = createTheme({
@@ -31,9 +32,11 @@ const Header = () => {
         >
           <Container>
             <Toolbar>
-              <Typography className="title" variant="h6">
-                Crypto Hunter
-              </Typography>
+        
+                <Typography className="title" variant="h6">
+                  Crypto Hunter
+                </Typography>
+           
               <Select
                 variant="outlined"
                 style={{

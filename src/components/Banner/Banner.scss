@@ -1,5 +1,6 @@
 .banner-container {
-  background-image: url("../../assets/images/main-bg.jpg");
+  
+  background: center / contain no-repeat url("../../assets/images/main-bg.jpg"),            #eee 35% url("../../assets/images/main-bg.jpg");
   
   background-position: center;
   .banner-content {

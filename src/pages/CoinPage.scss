@@ -1,0 +1,54 @@
+.coins-container {
+  display: flex;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .coins-sidebar {
+    width: 30%;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    border-radius: 2px solid grey;
+  }
+  .coins-heading {
+    font-weight: 700;
+    font-family: "Roboto Mono", monospace;
+    margin-bottom: 20px;
+  }
+  .coins-description {
+    width: 100%;
+    font-family: "Roboto Mono", monospace;
+    padding: 25px;
+    padding-bottom: 15px;
+    padding-top: 0;
+    text-align: justify;
+  }
+  .coins-rank {
+    font-family: "Roboto Mono", monospace;
+  }
+  .coins-marketdata {
+    align-self: start;
+    padding: 25px;
+    width: 100%;
+    padding-top: 10px;
+
+    @media screen and (max-width: 700px) {
+      display: flex;
+      justify-content: space-around;
+    }
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
+    }
+    @media screen and (max-width: 400px) {
+      align-items: center;
+    }
+  }
+}

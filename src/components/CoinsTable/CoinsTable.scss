@@ -1,0 +1,33 @@
+.coins-container {
+  text-align: center;
+  .coins-title {
+    margin: 18px;
+    font-family: "Roboto Mono", monospace;
+  }
+  .search-container {
+    margin-bottom: 20px;
+    width: 100%;
+    color: white;
+  }
+  .table-head {
+    background-color: #eebc1d !important;
+  }
+  .row-main {
+    background-color: #16171a;
+    &:hover {
+      background-color: #131111;
+    }
+    cursor: pointer;
+    font-family: "Roboto Mono", monospace;
+  }
+  .pagination-main{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #eebc1d;
+    & .MuiPaginationItem-root {
+        color: gold;
+    }
+  }
+}
