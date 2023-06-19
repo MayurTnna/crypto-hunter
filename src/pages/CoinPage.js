@@ -12,36 +12,65 @@ const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
   const { currency, symbol } = CryptoState();
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
-  const fetchCoins = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-    setCoin(data);
+  const fetchCoin = async () => {
+    try {
+      const response = await axios.get(SingleCoin(id));
+      setCoin(response.data);
+    } catch (error) {
+      console.log("Error fetching coin:", error);
+    }
   };
+
+  const getLimitedDescription = (description, limit) => {
+    const words = description.split(" ");
+    if (words.length > limit) {
+      const limitedWords = words.slice(0, limit);
+      return `${limitedWords.join(" ")}...`;
+    }
+    return description;
+  };
+
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   useEffect(() => {
-    fetchCoins();
+    fetchCoin();
   }, []);
-  if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
 
-  console.log(coin);
+  if (!coin) {
+    return <LinearProgress style={{ backgroundColor: "gold" }} />;
+  }
+
+  const description = showFullDescription
+    ? coin.description.en
+    : getLimitedDescription(coin.description.en, 50);
+
   return (
     <>
       <div className="coins-container">
         <div className="coins-sidebar">
           <img
-            src={coin?.image.large}
-            alt={coin?.name}
+            src={coin.image.large}
+            alt={coin.name}
             height="200"
             style={{ marginBottom: 20 }}
           />
           <Typography variant="h3" className="coins-heading">
-            {coin?.name}
+            {coin.name}
           </Typography>
           <Typography variant="subtitle1" className="coins-description">
-            {ReactHtmlParser(coin?.description.en.split(".   ")[0])}.
+            {ReactHtmlParser(description)}
+            {coin.description.en.split(" ").length > 50 && (
+              <span
+                className="read-more"
+                onClick={() => setShowFullDescription(!showFullDescription)}
+              >
+                {showFullDescription ? "Read Less" : "Read More"}
+              </span>
+            )}
           </Typography>
           <div className="coins-marketdata">
             <span style={{ display: "flex" }}>
@@ -81,7 +110,7 @@ const CoinPage = () => {
             </span>
           </div>
         </div>
-        {/* chart section */}
+        {/* Add your chart section component here */}
         <CoinInfo coin={coin} />
       </div>
     </>

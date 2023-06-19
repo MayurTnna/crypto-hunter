@@ -1,16 +1,23 @@
 import "./assets/scss/App.scss";
 import Header from "./common/Header";
+
 import CoinPage from "./pages/CoinPage";
 import RouterPath from "./routes/RouterPath";
+import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <RouterPath />
-     
+    <>
+      <BrowserRouter>
+        <div className="App">
+          <Toaster />
 
-    </div>
+          <Header />
+          <RouterPath />
+        </div>
+      </BrowserRouter>
+    </>
   );
 }
 

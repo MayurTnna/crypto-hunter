@@ -1,0 +1,19 @@
+.main-button {
+  width: 85px;
+  height: 40px;
+  margin-left: 15px;
+  background-color: #eebc1d !important;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .paper {
+    width: 400px;
+    background-color: black;
+
+    color: white;
+    border-radius: 10px;
+  }
+}

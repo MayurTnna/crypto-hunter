@@ -12,7 +12,7 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import { CryptoState } from "../CryptoContext";
 import { Link } from "react-router-dom";
-
+import AuthModal from "../components/Authentication/AuthModal";
 const Header = () => {
   const darkTheme = createTheme({
     palette: {
@@ -20,7 +20,8 @@ const Header = () => {
     },
   });
 
-  const { currency, setCurrency } = CryptoState();
+  const { currency, setCurrency, user } = CryptoState();
+
   return (
     <>
       <ThemeProvider theme={darkTheme}>
@@ -32,11 +33,15 @@ const Header = () => {
         >
           <Container>
             <Toolbar>
-        
-                <Typography className="title" variant="h6">
-                  Crypto Hunter
-                </Typography>
-           
+              {" "}
+              <Typography
+                className="title"
+                variant="h6"
+                component={Link}
+                to="/"
+              >
+                Crypto Hunter
+              </Typography>{" "}
               <Select
                 variant="outlined"
                 style={{
@@ -51,6 +56,7 @@ const Header = () => {
                 <MenuItem value={"USD"}>USD</MenuItem>
                 <MenuItem value={"INR"}>INR</MenuItem>
               </Select>
+              {user ? "logout" : <AuthModal />}
             </Toolbar>
           </Container>
         </AppBar>
