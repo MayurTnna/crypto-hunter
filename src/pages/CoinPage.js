@@ -14,7 +14,8 @@ import { toast } from "react-hot-toast";
 const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-  const { currency, symbol, user, watchList, setWatchList } = CryptoState();
+  const { currency, symbol, user, watchList, setWatchList, setCoins } =
+    CryptoState();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const isWatchList = watchList.includes(coin?.id);
@@ -75,12 +76,13 @@ const CoinPage = () => {
       await setDoc(coinRef, {
         coins: watchList ? [...watchList, coin.id] : [coin?.id],
       });
+
       toast.success("Added to WatchList");
     } catch (error) {
       toast.error("error");
     }
   };
-  const removeWatchList = async () => {
+const removeWatchList = async () => {
     const coinRef = doc(db, "watchlist", user.uid);
 
     try {

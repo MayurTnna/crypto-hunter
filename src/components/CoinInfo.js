@@ -53,7 +53,6 @@ const CoinInfo = ({ coin }) => {
   });
   if (!historicData)
     return <LinearProgress style={{ backgroundColor: "gold" }} />;
-  console.log("data", historicData);
 
   const options = {
     responsive: true,

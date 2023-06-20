@@ -24,6 +24,7 @@ const CryptoProvider = ({ children }) => {
     const { data } = await axios.get(CoinList(currency));
     setCoins(data);
     setLoading(false);
+
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const CryptoProvider = ({ children }) => {
     watchList,
     setWatchList
   };
-  console.log("user:-", user);
+
 
   return (
     <CryptoContext.Provider value={crypto}>{children}</CryptoContext.Provider>

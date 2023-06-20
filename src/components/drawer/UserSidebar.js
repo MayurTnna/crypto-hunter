@@ -5,18 +5,20 @@ import { CryptoState } from "../../CryptoContext";
 import { Avatar, Button } from "@mui/material";
 import "../drawer/UserSidebar.scss";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { toast } from "react-hot-toast";
+import { AiFillDelete } from "react-icons/ai";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function UserSidebar() {
   const [state, setState] = React.useState({
     right: false,
   });
 
-  const { user } = CryptoState();
+  const { user, watchList, coins, symbol } = CryptoState();
   const logOut = () => {
     signOut(auth);
-    console.log("logout");
+
     toast.success("Logout Successfully");
   };
 
@@ -29,6 +31,25 @@ export default function UserSidebar() {
     }
 
     setState({ ...state, [anchor]: open });
+  };
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  const removeWatchList = async (coin) => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(
+        coinRef,
+        {
+          coins: watchList.filter((watch) => watch !== coin?.id),
+        },
+        { merge: "true" }
+      );
+      toast.success("Removed from Watchlist");
+    } catch (error) {
+      toast.error("error");
+    }
   };
 
   return (
@@ -69,6 +90,33 @@ export default function UserSidebar() {
                   >
                     watchlist
                   </span>
+                  {console.log(coins)}
+                  {coins?.map((coinMain) => {
+                    if (watchList.includes(coinMain.id))
+                      return (
+                        <>
+                          <div className="coin">
+                            <span>{coinMain.name}</span>
+                            <span
+                              style={{
+                                display: "flex",
+                                gap: 8,
+                              }}
+                            >
+                              {symbol}
+                              {numberWithCommas(
+                                coinMain.current_price.toFixed(2)
+                              )}
+                              <AiFillDelete
+                                style={{ cursor: "pointer" }}
+                                fontSize="16"
+                                onClick={() => removeWatchList(coinMain)}
+                              />
+                            </span>
+                          </div>
+                        </>
+                      );
+                  })}
                 </div>
               </div>
               <Button

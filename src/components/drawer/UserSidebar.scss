@@ -39,4 +39,15 @@
     gap: 12px;
     flex-direction: column;
   }
+  .coin{
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    color: black!important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 3px black;
+    background-color: gold;
+  }
 }
