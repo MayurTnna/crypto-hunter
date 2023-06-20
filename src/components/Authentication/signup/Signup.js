@@ -25,7 +25,7 @@ const Signup = ({ handleClose }) => {
       );
       toast.success("Sign up successful");
       handleClose();
-      console.log(result)
+   
     } catch (error) {
       toast.error("user already exist")
     }

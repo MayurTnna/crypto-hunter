@@ -17,6 +17,7 @@ const CryptoProvider = ({ children }) => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const [watchList, setWatchList] = useState([] );
 
   const fetchCoins = async () => {
     setLoading(true);
@@ -26,7 +27,6 @@ const CryptoProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(currency);
     if (currency === "INR") setSymbol("₹");
     else if (currency === "USD") setSymbol("$");
   }, [currency]);
@@ -45,7 +45,10 @@ const CryptoProvider = ({ children }) => {
     loading,
     fetchCoins,
     user,
+    watchList,
+    setWatchList
   };
+  console.log("user:-", user);
 
   return (
     <CryptoContext.Provider value={crypto}>{children}</CryptoContext.Provider>
@@ -53,3 +56,7 @@ const CryptoProvider = ({ children }) => {
 };
 
 export default CryptoProvider;
+
+
+
+// Bwl1KXQzwOQ7nw66Wobp9LSC3F83

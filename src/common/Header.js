@@ -13,6 +13,7 @@ import { ThemeProvider } from "@emotion/react";
 import { CryptoState } from "../CryptoContext";
 import { Link } from "react-router-dom";
 import AuthModal from "../components/Authentication/AuthModal";
+import UserSidebar from "../components/drawer/UserSidebar";
 const Header = () => {
   const darkTheme = createTheme({
     palette: {
@@ -56,7 +57,7 @@ const Header = () => {
                 <MenuItem value={"USD"}>USD</MenuItem>
                 <MenuItem value={"INR"}>INR</MenuItem>
               </Select>
-              {user ? "logout" : <AuthModal />}
+              {user ? <UserSidebar/>: <AuthModal />}
             </Toolbar>
           </Container>
         </AppBar>

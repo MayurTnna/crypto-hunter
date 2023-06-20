@@ -4,11 +4,14 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import "../Authentication/AuthModal.scss";
 import { AppBar, Tab, Tabs } from "@mui/material";
 import Login from "./login/Login";
 import Signup from "./signup/Signup";
+
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase";
+import { toast } from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -29,6 +32,18 @@ export default function AuthModal() {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const googleProvider = new GoogleAuthProvider();
+  
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        toast.success("Login successful");
+      })
+      .catch((error) => {
+        toast.error("Login failed!");
+      });
   };
 
   return (
@@ -65,6 +80,20 @@ export default function AuthModal() {
             </AppBar>
             {value === 0 && <Login handleClose={handleClose} />}
             {value === 1 && <Signup handleClose={handleClose} />}
+            <Box className="google">
+              <span style={{ color: "white" }}>OR</span>
+              <Button className="google-btn" onClick={signInWithGoogle}>
+                <div className="google-icon-wrapper">
+                  <img
+                    className="google-icon"
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  />
+                </div>
+                <p className="btn-text">
+                  <b>Sign in with google</b>
+                </p>
+              </Button>
+            </Box>
           </div>
         </Fade>
       </Modal>

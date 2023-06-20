@@ -5,14 +5,34 @@ import axios from "axios";
 import { SingleCoin } from "../config/api";
 import CoinInfo from "../components/CoinInfo";
 import "../pages/CoinPage.scss";
-import { LinearProgress, Typography } from "@mui/material";
+import { Button, LinearProgress, Typography } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { toast } from "react-hot-toast";
 
 const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol, user, watchList, setWatchList } = CryptoState();
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const isWatchList = watchList.includes(coin?.id);
+  useEffect(() => {
+    if (user) {
+      const coinRef = doc(db, "watchlist", user.uid);
+      var unSubscribe = onSnapshot(coinRef, (coin) => {
+        if (coin.exists) {
+          setWatchList(coin.data().coins);
+        } else {
+          console.log("no items in watchList");
+        }
+      });
+      return () => {
+        unSubscribe();
+      };
+    }
+  }, [user]);
 
   const fetchCoin = async () => {
     try {
@@ -47,6 +67,35 @@ const CoinPage = () => {
   const description = showFullDescription
     ? coin.description.en
     : getLimitedDescription(coin.description.en, 50);
+
+  const addToWatchList = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(coinRef, {
+        coins: watchList ? [...watchList, coin.id] : [coin?.id],
+      });
+      toast.success("Added to WatchList");
+    } catch (error) {
+      toast.error("error");
+    }
+  };
+  const removeWatchList = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(
+        coinRef,
+        {
+          coins: watchList.filter((watch) => watch !== coin?.id),
+        },
+        { merge: "true" }
+      );
+      toast.success("Removed from Watchlist");
+    } catch (error) {
+      toast.error("error");
+    }
+  };
 
   return (
     <>
@@ -108,9 +157,19 @@ const CoinPage = () => {
                 )}
               </Typography>
             </span>
+            {user && (
+              <Button
+                variant="contained"
+                color={isWatchList ? "error" : "success"}
+                className="watch-button"
+                onClick={isWatchList ? removeWatchList : addToWatchList}
+              >
+                {isWatchList ? "Remove from Watchlist" : "Add to Watchlist"}
+              </Button>
+            )}
           </div>
         </div>
-        {/* Add your chart section component here */}
+
         <CoinInfo coin={coin} />
       </div>
     </>
