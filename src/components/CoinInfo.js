@@ -80,6 +80,8 @@ const CoinInfo = ({ coin }) => {
           ) : (
             <>
               <Line
+                options={options}
+                pointStyle="false"
                 data={{
                   labels:
                     historicData &&
@@ -122,3 +124,4 @@ const CoinInfo = ({ coin }) => {
 };
 
 export default CoinInfo;
+
