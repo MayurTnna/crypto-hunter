@@ -8,8 +8,14 @@ import "../Authentication/AuthModal.scss";
 import { AppBar, Tab, Tabs } from "@mui/material";
 import Login from "./login/Login";
 import Signup from "./signup/Signup";
+import { FaFacebook } from "react-icons/fa";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  FacebookAuthProvider,
+} from "firebase/auth";
+
 import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
 
@@ -35,9 +41,19 @@ export default function AuthModal() {
   };
 
   const googleProvider = new GoogleAuthProvider();
-  
+  const facebookProvider = new FacebookAuthProvider();
+
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        toast.success("Login successful");
+      })
+      .catch((error) => {
+        toast.error("Login failed!");
+      });
+  };
+  const handleFacebookLogin = () => {
+    signInWithPopup(auth, facebookProvider)
       .then((res) => {
         toast.success("Login successful");
       })
@@ -92,6 +108,11 @@ export default function AuthModal() {
                 <p className="btn-text">
                   <b>Sign in with google</b>
                 </p>
+              </Button>
+              <Button className="facebook-button" onClick={handleFacebookLogin}>
+                <span className="facebook-text">
+                  <FaFacebook />
+                </span>
               </Button>
             </Box>
           </div>

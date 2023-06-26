@@ -108,7 +108,7 @@ export default function UserSidebar() {
                                 coinMain.current_price.toFixed(2)
                               )}
                               <AiFillDelete
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", marginTop: "3px" }}
                                 fontSize="16"
                                 onClick={() => removeWatchList(coinMain)}
                               />

@@ -55,4 +55,16 @@
       }
     }
   }
+  .facebook-button {
+    width: 350px;
+    height: 42px;
+    background-color: #4285f4;
+    .facebook-text {
+      color: #fff !important;
+      font-weight: bold !important;
+      font-size: 25px;
+      font-style: italic;
+      margin-top: 6px;
+    }
+  }
 }
