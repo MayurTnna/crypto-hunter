@@ -19,18 +19,6 @@ import {
 import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -103,6 +91,7 @@ export default function AuthModal() {
                   <img
                     className="google-icon"
                     src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    alt="jndnsjn"
                   />
                 </div>
                 <p className="btn-text">

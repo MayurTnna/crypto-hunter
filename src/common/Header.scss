@@ -6,5 +6,15 @@
     font-weight: 700;
     cursor: pointer;
     font-size: 20px;
+
+    @media screen and (max-width: 350px) {
+      padding-left: 0 !important;
+      margin-right: 20px !important;
+    }
+  }
+  .css-hyum1k-MuiToolbar-root {
+    @media screen and (max-width: 350px) {
+      padding-left: 0 !important;
+    }
   }
 }
