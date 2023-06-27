@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "../Carousel/Carousel.scss";
 import { TrendingCoins } from "../../config/api";
 import axios from "axios";
@@ -18,6 +18,7 @@ const Carousel = () => {
 
   useEffect(() => {
     fetchTradingCoins();
+    // eslint-disable-next-line
   }, [currency]);
 
   const responsive = {

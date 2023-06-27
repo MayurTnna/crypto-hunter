@@ -1,7 +1,5 @@
 import "./assets/scss/App.scss";
 import Header from "./common/Header";
-
-import CoinPage from "./pages/CoinPage";
 import RouterPath from "./routes/RouterPath";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";

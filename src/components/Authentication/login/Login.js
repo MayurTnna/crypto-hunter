@@ -13,7 +13,7 @@ const Login = ({ handleClose }) => {
       toast.error("Empty fields!");
     }
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
+       await signInWithEmailAndPassword(auth, email, password);
       handleClose();
       toast.success("LOGIN SUCCESSFUL")
     } catch (error) {

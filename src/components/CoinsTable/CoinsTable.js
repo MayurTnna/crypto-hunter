@@ -1,6 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { CoinList } from "../../config/api";
 import { CryptoState } from "../../CryptoContext";
 import {
   Container,
@@ -37,6 +35,7 @@ const CoinsTable = () => {
 
   useEffect(() => {
     fetchCoins();
+    // eslint-disable-next-line
   }, [currency]);
 
   const handleSearch = () => {

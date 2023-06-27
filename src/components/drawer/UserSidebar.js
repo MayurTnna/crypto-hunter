@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import Drawer from "@mui/material/Drawer";
 import { CryptoState } from "../../CryptoContext";
 import { Avatar, Button } from "@mui/material";
@@ -18,7 +17,6 @@ export default function UserSidebar() {
   const { user, watchList, coins, symbol } = CryptoState();
   const logOut = () => {
     signOut(auth);
-
     toast.success("Logout Successfully");
   };
 
@@ -32,9 +30,11 @@ export default function UserSidebar() {
 
     setState({ ...state, [anchor]: open });
   };
+
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+
   const removeWatchList = async (coin) => {
     const coinRef = doc(db, "watchlist", user.uid);
 
@@ -44,11 +44,11 @@ export default function UserSidebar() {
         {
           coins: watchList.filter((watch) => watch !== coin?.id),
         },
-        { merge: "true" }
+        { merge: true }
       );
       toast.success("Removed from Watchlist");
     } catch (error) {
-      toast.error("error");
+      toast.error("Error");
     }
   };
 
@@ -58,7 +58,12 @@ export default function UserSidebar() {
         <React.Fragment key={anchor}>
           <Avatar
             onClick={toggleDrawer(anchor, true)}
-            style={{ height: 38, width: 38, marginLeft: 15, cursor: "pointer" }}
+            style={{
+              height: 38,
+              width: 38,
+              marginLeft: 15,
+              cursor: "pointer",
+            }}
             src={user.photoURL}
             alt={user.displayName || user.email}
           />
@@ -88,35 +93,31 @@ export default function UserSidebar() {
                   <span
                     style={{ fontSize: "15px", textShadow: " 0 0 5px black" }}
                   >
-                    watchlist
+                    Watchlist
                   </span>
-                  {console.log(coins)}
-                  {coins?.map((coinMain) => {
-                    if (watchList.includes(coinMain.id))
-                      return (
-                        <>
-                          <div className="coin">
-                            <span>{coinMain.name}</span>
-                            <span
-                              style={{
-                                display: "flex",
-                                gap: 8,
-                              }}
-                            >
-                              {symbol}
-                              {numberWithCommas(
-                                coinMain.current_price.toFixed(2)
-                              )}
-                              <AiFillDelete
-                                style={{ cursor: "pointer", marginTop: "3px" }}
-                                fontSize="16"
-                                onClick={() => removeWatchList(coinMain)}
-                              />
-                            </span>
-                          </div>
-                        </>
-                      );
-                  })}
+                  {coins
+                    .filter((coinMain) => watchList.includes(coinMain.id))
+                    .map((coinMain) => (
+                      <div className="coin" key={coinMain.id}>
+                        <span>{coinMain.name}</span>
+                        <span
+                          style={{
+                            display: "flex",
+                            gap: 8,
+                          }}
+                        >
+                          {symbol}
+                          {numberWithCommas(
+                            coinMain.current_price.toFixed(2)
+                          )}
+                          <AiFillDelete
+                            style={{ cursor: "pointer", marginTop: "3px" }}
+                            fontSize="16"
+                            onClick={() => removeWatchList(coinMain)}
+                          />
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <Button
