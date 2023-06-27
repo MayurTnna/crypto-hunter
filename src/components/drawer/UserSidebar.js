@@ -8,6 +8,7 @@ import { auth, db } from "../../firebase";
 import { toast } from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import { doc, setDoc } from "firebase/firestore";
+import { Helmet } from "react-helmet";
 
 export default function UserSidebar() {
   const [state, setState] = React.useState({
@@ -54,6 +55,17 @@ export default function UserSidebar() {
 
   return (
     <div>
+      <Helmet>
+      <title>User Profile | Crypto Hunter</title>
+        <meta
+          name="description"
+          content="View and manage your profile and watchlist in the Crypto Hunter app."
+        />
+        <meta
+          name="keywords"
+          content="user sidebar, profile, watchlist, Crypto Hunter"
+        />
+      </Helmet>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Avatar

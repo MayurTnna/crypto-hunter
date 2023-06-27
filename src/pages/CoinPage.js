@@ -10,6 +10,7 @@ import ReactHtmlParser from "react-html-parser";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const CoinPage = () => {
   const { id } = useParams();
@@ -102,6 +103,17 @@ const CoinPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Crypto Hunter - {coin.name}</title>
+        <meta
+          name="description"
+          content={`Learn more about ${coin.name} and its market information.`}
+        />
+        <meta
+          name="keywords"
+          content={`${coin.name}, cryptocurrency, market data, ${coin.name} price, ${coin.name} market cap`}
+        />
+      </Helmet>
       <div className="coins-container">
         <div className="coins-sidebar">
           <img

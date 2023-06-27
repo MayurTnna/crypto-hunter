@@ -18,6 +18,7 @@ import {
 
 import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
@@ -52,6 +53,18 @@ export default function AuthModal() {
 
   return (
     <div>
+       <Helmet>
+        <title>Crypto Hunter</title>
+        <meta
+          name="description"
+          content={`Learn more about and its market information.`}
+        />
+        <meta
+          name="keywords"
+          content={`, cryptocurrency, market data,  price,  market cap`}
+        />
+        {/* Add more meta tags as needed */}
+      </Helmet>
       <Button variant="contained" onClick={handleOpen} className="main-button">
         Login
       </Button>
